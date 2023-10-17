@@ -9,17 +9,17 @@
 
 /**
  * struc format - compile with the conversion specifiers for printf
- * @ig: type char pointer of the spcifier
- * @p: pointer to function for the conversion specifier
+ * @id: type char pointer of the spcifier
+ * @f: pointer to function for the conversion specifier
  *
  */
 
 typedef struct format
 {
-	char *ig;
-	int (*p)();
-	convert_match;
-}
+	char *id;
+	int (*f)();
+}convert_match;
+
 
 int _putchar(char c);
 int ourprint_int(va_list args);
