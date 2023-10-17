@@ -8,3 +8,8 @@
 #include <limits.h>
 
 int _putchar(char c);
+int ourprint_int(va_list args);
+int ourprint_dec(va_list args);
+int ourprintf_bin(va_list val);
+
+#endif
