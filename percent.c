@@ -1,11 +1,15 @@
 #include "main.h"
+#include <stdio.h>
 /**
- * printf_37 - prints the char 37.
- * Return: 1.
+ * print_perc - writes the character c to stdout
+ * @a: input char
+ * @buf: buffer pointer
+ * @i: index for buffer pointer
+ * Return: On success 1.
  */
-int printf_37(void)
+int print_perc(va_list a __attribute__((unused)), char *buf, unsigned int i)
 {
-	_putchar(37);
+	handl_buf(buf, '%', i);
+
 	return (1);
 }
-

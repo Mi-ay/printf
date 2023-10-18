@@ -22,16 +22,15 @@ typedef struct format
 
 
 int _putchar(char c);
-int ourprint_int(va_list args);
+nt ourprint_int(va_list arguments, char *buf, unsigned int ibuf);
 int ourprint_dec(va_list args);
-int ourprintf_bin(va_list val);
+int print_bin(va_list arguments, char *buf, unsigned int ibuf);
 unsigned int our_buf(char *buf, char c, unsigned int ibufp);
 int _printf(const char *format, ...);
-int printf_char(va_list val);
-int prints_string(va_list val);
-int _strlen(char *s);
-int _strlenc(const char *s);
-int printf_37(void);
+int print_chr(va_list args, char *buf, unsigned int ibuf);
+int ourprint_func(const char *s, int index);
+int print_string(va_list arguments, char *buf, unsigned int ibuf);
+int print_perc(va_list a __attribute__((unused)), char *buf, unsigned int i);
 
 
 #endif

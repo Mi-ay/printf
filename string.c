@@ -1,30 +1,26 @@
 #include "main.h"
+
 /**
- * prints_string - print a string.
- * @val: argumen t.
- * Return: the length of the string.
+ * print_string - writes the string to stdout
+ * @arguments: input string
+ * @buf: buffer pointer
+ * @ibuf: index for buffer pointer
+ * Return: On success 1.
  */
-
-int prints_string(va_list val)
+int print_string(va_list arguments, char *buf, unsigned int ibuf)
 {
-	char *s;
-	int i, len;
+	char *str;
+	unsigned int i;
+	char nill[] = "(null)";
 
-	s = va_arg(val, char *);
-	if (s == NULL)
+	str = va_arg(arguments, char *);
+	if (str == NULL)
 	{
-		s = "(null)";
-		len = _strlen(s);
-		for (i = 0; i < len; i++)
-			_putchar(s[i]);
-		return (len);
+		for (i = 0; nill[i]; i++)
+			ibuf = handl_buf(buf, nill[i], ibuf);
+		return (6);
 	}
-	else
-	{
-		len = _strlen(s);
-		for (i = 0; i < len; i++)
-			_putchar(s[i]);
-		return (len);
-	}
+	for (i = 0; str[i]; i++)
+		ibuf = handl_buf(buf, str[i], ibuf);
+	return (i);
 }
-

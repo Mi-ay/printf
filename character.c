@@ -1,15 +1,18 @@
 #include "main.h"
-
+#include <stdio.h>
 /**
- * printf_char - prints a char.
- * @val: arguments.
- * Return: 1.
+ * print_chr - writes the character c to stdout
+ * @arguments: input char
+ * @buf: buffer pointer
+ * @ibuf: index for buffer pointer
+ * Return: On success 1.
  */
-int printf_char(va_list val)
+int print_chr(va_list args, char *buf, unsigned int ibuf)
 {
-	char s;
+	char c;
 
-	s = va_arg(val, int);
-	_putchar(s);
+	c = va_arg(ars, int);
+	handl_buf(buf, c, ibuf);
+
 	return (1);
 }
