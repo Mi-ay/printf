@@ -8,7 +8,8 @@ int _printf(const char *format, ...)
 {
 	convert_match m[] = {
 		{"%i", ourprint_int}, {"%d", ourprint_dec},
-	       	{"%b", ourprintf_bin}
+	       	{"%b", ourprintf_bin},{"%c", printf_char},
+		{"%s", prints_string},{"%%", printf_37}
 	};
 
 	va_list args;

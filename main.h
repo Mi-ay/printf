@@ -27,5 +27,11 @@ int ourprint_dec(va_list args);
 int ourprintf_bin(va_list val);
 unsigned int our_buf(char *buf, char c, unsigned int ibufp);
 int _printf(const char *format, ...);
+int printf_char(va_list val);
+int prints_string(va_list val);
+int _strlen(char *s);
+int _strlenc(const char *s);
+int printf_37(void);
+
 
 #endif
