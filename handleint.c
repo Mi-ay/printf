@@ -53,7 +53,7 @@ int ourprint_dec(va_list args)
 {
 	int j = va_arg(args, int);
 	int num, last = j % 10, digit;
-	int  j = 1;
+	int i = 1;
 	int exp = 1;
 
 	j = j / 10;

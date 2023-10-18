@@ -11,7 +11,7 @@ unsigned int our_buf(char *buf, char c, unsigned int ibufp)
 {
 	if (ibufp == 1024)
 	{
-		print_buf(buf, ibufp);
+		our_buf(buf, ibufp);
 		ibufp = 0;
 	}
 	buf[ibufp] = c;
