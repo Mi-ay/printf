@@ -10,12 +10,12 @@ int _printf(const char *format, ...)
 
 {
 	int add = 0;
-	va_list p;
+	va_list xy;
 	char *p, *start;
 
 	params_t params = PARAMS_INIT;
 
-	va_start(p, format);
+	va_start(xy, format);
 
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
@@ -23,7 +23,7 @@ int _printf(const char *format, ...)
 		return (-1);
 	for (p = (char *)format; *p; p++)
 	{
-		init_params(&params, p);
+		init_params(&params, xy);
 		if (*p != '%')
 		{
 			add += _putchar(*p);
@@ -35,17 +35,17 @@ int _printf(const char *format, ...)
 		{
 			p++;
 		}
-		p = our_width(p, &params, p);
-		p = our_precision(p, &params, p);
+		p = our_width(p, &params, xy);
+		p = our_precision(p, &params, xy);
 		if (our_modifier(p, &params))
 			p++;
 		if (!our_specifier(p))
 			add += print_from_to(start, p,
 					params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-			add += our_print_func(p, p, &params);
+			add += our_print_func(p, xy, &params);
 	}
 	_putchar(BUF_FLUSH);
-	va_end(p);
+	va_end(xy);
 	return (add);
 }

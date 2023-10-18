@@ -72,34 +72,34 @@ int _puts(char *str);
 int _putchar(int c);
 
 /* print_functions.c module */
-int print_char(va_list p, params_t *params);
-int print_int(va_list p, params_t *params);
-int print_string(va_list p, params_t *params);
-int print_percent(va_list p, params_t *params);
-int print_S(va_list p, params_t *params);
+int print_char(va_list ap, params_t *params);
+int print_int(va_list ap, params_t *params);
+int print_string(va_list ap, params_t *params);
+int print_percent(va_list ap, params_t *params);
+int print_S(va_list ap, params_t *params);
 
 /* number.c module */
 char *convert(long int num, int base, int flags, params_t *params);
-int print_unsigned(va_list p, params_t *params);
-int print_address(va_list p, params_t *params);
+int print_unsigned(va_list ap, params_t *params);
+int print_address(va_list ap, params_t *params);
 
 /* specifier.c module */
-int (*our_specifier(char *s))(va_list p, params_t *params);
-int our_print_func(char *s, va_list p, params_t *params);
+int (*our_specifier(char *s))(va_list ap, params_t *params);
+int our_print_func(char *s, va_list ap, params_t *params);
 int our_flag(char *s, params_t *params);
 int our_modifier(char *s, params_t *params);
-char *our_width(char *s, params_t *params, va_list p);
+char *our_width(char *s, params_t *params, va_list ap);
 
 /* convert_number.c module */
-int print_hex(va_list p, params_t *params);
-int print_HEX(va_list p, params_t *params);
-int print_binary(va_list p, params_t *params);
-int print_octal(va_list p, params_t *params);
+int print_hex(va_list ap, params_t *params);
+int print_HEX(va_list ap, params_t *params);
+int print_binary(va_list ap, params_t *params);
+int print_octal(va_list ap, params_t *params);
 
 /* simple_printers.c module */
 int print_from_to(char *start, char *stop, char *except);
-int print_rev(va_list p, params_t *params);
-int print_rot13(va_list p, params_t *params);
+int print_rev(va_list ap, params_t *params);
+int print_rot13(va_list ap, params_t *params);
 
 /* print_number.c module */
 int _isdigit(int c);
@@ -109,10 +109,10 @@ int print_number_right_shift(char *str, params_t *params);
 int print_number_left_shift(char *str, params_t *params);
 
 /* params.c module */
-void init_params(params_t *params, va_list p);
+void init_params(params_t *params, va_list ap);
 
 /* string_fields.c modoule */
-char *our_precision(char *p, params_t *params, va_list p);
+char *our_precision(char *p, params_t *params, va_list ap);
 
 /* _prinf.c module */
 int _printf(const char *format, ...);
