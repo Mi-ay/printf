@@ -1,26 +1,79 @@
 #include "main.h"
 
 /**
- * print_string - writes the string to stdout
- * @arguments: input string
- * @buf: buffer pointer
- * @ibuf: index for buffer pointer
- * Return: On success 1.
+ * print_from_to - print addresses
+ * @start: start
+ * @stop: stop
+ * @except: except
+ *
+ * Return: number
  */
-int print_string(va_list arguments, char *buf, unsigned int ibuf)
+int print_from_to(char *start, char *stop, char *except)
 {
-	char *str;
-	unsigned int i;
-	char nill[] = "(null)";
+	int add = 0;
 
-	str = va_arg(arguments, char *);
-	if (str == NULL)
+	while (start <= stop)
 	{
-		for (i = 0; nill[i]; i++)
-			ibuf = handl_buf(buf, nill[i], ibuf);
-		return (6);
+		if (start != except)
+			add += _putchar(*start);
+		start++;
 	}
-	for (i = 0; str[i]; i++)
-		ibuf = handl_buf(buf, str[i], ibuf);
-	return (i);
+	return (add);
+}
+
+/**
+ * print_rev - string reverse
+ * @p: string
+ * @params: the parameters struct
+ *
+ * Return: number bytes printed
+ */
+int print_rev(va_list p, params_t *params)
+{
+	int len, add = 0;
+	char *str = va_arg(p, char *);
+	(void)params;
+
+	if (str)
+	{
+		for (len = 0; *str; str++)
+			len++;
+		str--;
+		for (; len > 0; len--, str--)
+			add += _putchar(*str);
+	}
+	return (add);
+}
+
+/**
+ * print_rot13 -  string rot13
+ * @p: string
+ * @params: the parameters struct
+ *
+ * Return: number bytes printed
+ */
+int print_rot13(va_list p, params_t *params)
+{
+	int r, k;
+	int c = 0;
+	char arr[] =
+		"NOPQRSTUVWXYZABCDEFGHIJKLM      nopqrstuvwxyzabcdefghijklm";
+	char *a = va_arg(p, char *);
+	(void)params;
+
+	r = 0;
+	k = 0;
+	while (a[r])
+	{
+		if ((a[r] >= 'A' && a[r] <= 'Z')
+		    || (a[r] >= 'a' && a[r] <= 'z'))
+		{
+			k = a[r] - 65;
+			c += _putchar(arr[k]);
+		}
+		else
+			c += _putchar(a[r]);
+		r++;
+	}
+	return (c);
 }

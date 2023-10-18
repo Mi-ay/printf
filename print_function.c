@@ -1,50 +1,51 @@
 #include "main.h"
-/**
- * ourprint_func - returns the amount of identifiers.
- * @s: argument indentifier
- * @index: index of argument identifier.
- * Return: amount of identifiers.
- */
-int ourprint_func(const char *s, int index)
-{
-	print_t pr[] = {
-		{"c", print_chr}, {"s", print_string}, {"i", ourprint_int},
-		{"d", ourprint_int}, {"b", print_bin}, {"u", print_unt},
-		{"o", print_oct}, {"x", print_hex}, {"X", print_upx},
-		{"S", print_usr}, {"p", print_add}, {"li", prinlint},
-		{"ld", prinlint}, {"lu", prinlunt}, {"lo", prinloct},
-		{"lx", prinlhex}, {"lX", prinlupx}, {"hi", prinhint},
-		{"hd", prinhint}, {"hu", prinhunt}, {"ho", prinhoct},
-		{"hx", prinhhex}, {"hX", prinhupx}, {"#o", prinnoct},
-		{"#x", prinnhex}, {"#X", prinnupx}, {"#i", print_int},
-		{"#d", print_int}, {"#u", print_unt}, {"+i", prinpint},
-		{"+d", prinpint}, {"+u", print_unt}, {"+o", print_oct},
-		{"+x", print_hex}, {"+X", print_upx}, {" i", prinsint},
-		{" d", prinsint}, {" u", print_unt}, {" o", print_oct},
-		{" x", print_hex}, {" X", print_upx}, {"R", print_rot},
-		{"r", print_rev}, {"%", print_prg}, {"l", print_prg},
-		{"h", print_prg}, {" +i", prinpint}, {" +d", prinpint},
-		{"+ i", prinpint}, {"+ d", prinpint}, {" %", print_perc},
-		{NULL, NULL},
-	};
-	int i = 0, j = 0, first_index;
 
-	first_index = index;
-	while (pr[i].type_arg)
+/**
+ * _printf - prints to the standard output
+ * @format: format string
+ * Return: number of bytes printed
+ */
+
+int _printf(const char *format, ...)
+
+{
+	int add = 0;
+	va_list p;
+	char *p, *start;
+
+	params_t params = PARAMS_INIT;
+
+	va_start(p, format);
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
+	for (p = (char *)format; *p; p++)
 	{
-		if (s[index] == pr[i].type_arg[j])
+		init_params(&params, p);
+		if (*p != '%')
 		{
-			if (pr[i].type_arg[j + 1] != '\0')
-				index++, j++;
-			else
-				break;
+			add += _putchar(*p);
+			continue;
 		}
+		start = p;
+		p++;
+		while (our_flag(p, &params))
+		{
+			p++;
+		}
+		p = our_width(p, &params, p);
+		p = our_precision(p, &params, p);
+		if (our_modifier(p, &params))
+			p++;
+		if (!our_specifier(p))
+			add += print_from_to(start, p,
+					params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-		{
-			j = 0;
-			i++;
-			index = first_index;
-		}
+			add += our_print_func(p, p, &params);
 	}
-	return (j);
+	_putchar(BUF_FLUSH);
+	va_end(p);
+	return (add);
 }
