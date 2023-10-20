@@ -2,48 +2,46 @@
 
 /**
  * print_char - prints character
- * @p:  pointer
- * @params: parameters struct
+ * @p:  pointer to character
+ * @params: structure of parameter
  *
  * Return: number of characters printed
  */
 int print_char(va_list p, params_t *params)
 {
 	char space_char = ' ';
-	unsigned int pad = 1, add = 0, ch = va_arg(p, int);
+	unsigned int pad = 1, sum = 0, ch = va_arg(p, int);
 
 	if (params->minus_flag)
-		add += _putchar(ch);
+		sum += _putchar(ch);
 	while (pad++ < params->width)
-		add += _putchar(space_char);
+		sum += _putchar(space_char);
 	if (!params->minus_flag)
-		add += _putchar(ch);
-	return (add);
+		sum += _putchar(ch);
+	return (sum);
 }
-
 /**
- * print_int - prints integer
- * @p: pointer
- * @params: parameters struct
+ * print_int - to prints integer
+ * @p: pointer to integer
+ * @params: structure of parameter
  *
- * Return: numberof characters printed
+ * Return: number of characters printed
  */
-int print_int(va_list p, params_t *params)
+int print_int(va_list ap, params_t *params)
 {
 	long l;
 
 	if (params->l_modifier)
-		l = va_arg(p, long);
+		l = va_arg(ap, long);
 	else if (params->h_modifier)
-		l = (short int)va_arg(p, int);
+		l = (short int)va_arg(ap, int);
 	else
-		l = (int)va_arg(p, int);
+		l = (int)va_arg(ap, int);
 	return (print_number(convert(l, 10, 0, params), params));
 }
-
 /**
  * print_string - prints string
- * @p:  pointer
+ * @p:  pointer to string
  * @params: parameters struct
  *
  * Return: number of characters printed
@@ -51,40 +49,40 @@ int print_int(va_list p, params_t *params)
 int print_string(va_list p, params_t *params)
 {
 	char *str = va_arg(p, char *), space_char = ' ';
-	unsigned int pad = 0, add = 0, r = 0, j;
+	unsigned int pad = 0, sum = 0, d = 0, a;
 
 	(void)params;
 	switch ((int)(!str))
 		case 1:
 			str = NULL_STRING;
 
-	j = pad = _strlen(str);
+	a = pad = _strlen(str);
 	if (params->precision < pad)
-		j = pad = params->precision;
+		a = pad = params->precision;
 
 	if (params->minus_flag)
 	{
 		if (params->precision != UINT_MAX)
-			for (r = 0; r < pad; r++)
-				add += _putchar(*str++);
+			for (d = 0; d < pad; d++)
+				sum += _putchar(*str++);
 		else
-			add += _puts(str);
+			sum += _puts(str);
 	}
-	while (j++ < params->width)
-		add += _putchar(space_char);
+	while (a++ < params->width)
+		sum += _putchar(space_char);
 	if (!params->minus_flag)
 	{
 		if (params->precision != UINT_MAX)
-			for (r = 0; r < pad; r++)
-				add += _putchar(*str++);
+			for (d = 0; d < pad; d++)
+				sum += _putchar(*str++);
 		else
-			add += _puts(str);
+			sum += _puts(str);
 	}
-	return (add);
+	return (sum);
 }
 
 /**
- * print_percent - prints
+ * print_percent - prints pecentage symbol
  * @p: pointer
  * @params: struct
  *
@@ -98,17 +96,17 @@ int print_percent(va_list p, params_t *params)
 }
 
 /**
- * print_S - format specifier
+ * print_Speci - format specifier
  * @p: pointer
  * @params: parameters
  *
  * Return: number of characters printed
  */
-int print_S(va_list p, params_t *params)
+int print_Speci(va_list p, params_t *params)
 {
 	char *str = va_arg(p, char *);
 	char *hex;
-	int add = 0;
+	int sum = 0;
 
 	if ((int)(!str))
 		return (_puts(NULL_STRING));
@@ -116,17 +114,17 @@ int print_S(va_list p, params_t *params)
 	{
 		if ((*str > 0 && *str < 32) || *str >= 127)
 		{
-			add += _putchar('\\');
-			add += _putchar('x');
+			sum += _putchar('\\');
+			sum += _putchar('x');
 			hex = convert(*str, 16, 0, params);
 			if (!hex[1])
-				add += _putchar('0');
-			add += _puts(hex);
+				sum += _putchar('0');
+			sum += _puts(hex);
 		}
 		else
 		{
-			add += _putchar(*str);
+			sum += _putchar(*str);
 		}
 	}
-	return (add);
+	return (sum);
 }

@@ -11,30 +11,30 @@
  */
 char *convert(long int num, int base, int flags, params_t *params)
 {
-	static char *arrange;
+	static char *digits;
 	static char buffer[50];
-	char store = 0;
-	char *pointer;
+	char sign = 0;
+	char *result;
 	unsigned long n = num;
 	(void)params;
 
 	if (!(flags & CONVERT_UNSIGNED) && num < 0)
 	{
 		n = -num;
-		store = '-';
+		sign = '-';
 	}
-	arrange = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
-	pointer = &buffer[49];
-	*pointer = '\0';
+	digits = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	result = &buffer[49];
+	*result = '\0';
 
 	do {
-		*--pointer = arrange[n % base];
+		*--result = digits[n % base];
 		n /= base;
 	} while (n != 0);
 
-	if (store)
-		*--pointer = store;
-	return (pointer);
+	if (sign)
+		*--result = sign;
+	return (result);
 }
 
 /**
@@ -42,7 +42,7 @@ char *convert(long int num, int base, int flags, params_t *params)
  * @p: pointer
  * @params: the parameters struct
  *
- * Return: bytes printed
+ * Return: data printed
  */
 int print_unsigned(va_list p, params_t *params)
 {
@@ -63,18 +63,18 @@ int print_unsigned(va_list p, params_t *params)
  * @p: pointer
  * @params: the parameters struct
  *
- * Return: bytes printed
+ * Return: data printed
  */
 int print_address(va_list p, params_t *params)
 {
 	unsigned long int n = va_arg(p, unsigned long int);
-	char *new_str;
+	char *new_addr;
 
 	if (!n)
 		return (_puts("(nil)"));
 
-	new_str = convert(n, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
-	*--new_str = 'x';
-	*--new_str = '0';
-	return (print_number(new_str, params));
+	new_addr = convert(n, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
+	*--new_addr = 'x';
+	*--new_addr = '0';
+	return (print_number(new_addr, params));
 }

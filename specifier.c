@@ -21,21 +21,21 @@ specifier_t specifiers[] = {
 {"x", print_hex},
 {"X", print_HEX},
 {"p", print_address},
-{"S", print_S},
-{"r", print_rev},
+{"S", print_Speci},
+{"r", print_strev},
 {"R", print_rot13},
 {NULL, NULL}
 };
 
-int r = 0;
+int d = 0;
 
-while (specifiers[r].specifier)
+while (specifiers[d].specifier)
 {
-if (*s == specifiers[r].specifier[0])
+if (*s == specifiers[d].specifier[0])
 {
-return (specifiers[r].f);
+return (specifiers[d].f);
 }
-r++;
+d++;
 }
 return (NULL);
 }
@@ -64,27 +64,27 @@ return (0);
 */
 int our_flag(char *s, params_t *params)
 {
-int r = 0;
+int d = 0;
 
 switch (*s)
 {
 case '+':
-r = params->plus_flag = 1;
+d = params->plus_flag = 1;
 break;
 case ' ':
-r = params->space_flag = 1;
+d = params->space_flag = 1;
 break;
 case '#':
-r = params->hashtag_flag = 1;
+d = params->hashtag_flag = 1;
 break;
 case '-':
-r = params->minus_flag = 1;
+d = params->minus_flag = 1;
 break;
 case '0':
-r = params->zero_flag = 1;
+d = params->zero_flag = 1;
 break;
 }
-return (r);
+return (d);
 }
 
 /**
@@ -95,18 +95,18 @@ return (r);
 */
 int our_modifier(char *s, params_t *params)
 {
-int r = 0;
+int d = 0;
 
 switch (*s)
 {
 case 'h':
-r = params->h_modifier = 1;
+d = params->h_modifier = 1;
 break;
 case 'l':
-r = params->l_modifier = 1;
+d = params->l_modifier = 1;
 break;
 }
-return (r);
+return (d);
 }
 
 /**
@@ -118,18 +118,18 @@ return (r);
 */
 char *our_width(char *s, params_t *params, va_list p)
 {
-int int_number = 0;
+int width_number = 0;
 
 if (*s == '*')
 {
-int_number = va_arg(p, int);
+width_number = va_arg(p, int);
 s++;
 }
 else
 {
 while (_isdigit(*s))
-int_number = int_number * 10 + (*s++ - '0');
+width_number = width_number * 10 + (*s++ - '0');
 }
-params->width = int_number;
+params->width = width_number;
 return (s);
 }

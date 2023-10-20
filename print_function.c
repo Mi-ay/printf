@@ -3,13 +3,13 @@
 /**
  * _printf - prints to the standard output
  * @format: format string
- * Return: number of bytes printed
+ * Return: number of datas printed
  */
 
 int _printf(const char *format, ...)
 
 {
-	int add = 0;
+	int sum = 0;
 	va_list xy;
 	char *p, *start;
 
@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 		init_params(&params, xy);
 		if (*p != '%')
 		{
-			add += _putchar(*p);
+			sum += _putchar(*p);
 			continue;
 		}
 		start = p;
@@ -40,12 +40,12 @@ int _printf(const char *format, ...)
 		if (our_modifier(p, &params))
 			p++;
 		if (!our_specifier(p))
-			add += print_from_to(start, p,
+			sum += print_add(start, p,
 					params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
-			add += our_print_func(p, xy, &params);
+			sum += our_print_func(p, xy, &params);
 	}
 	_putchar(BUF_FLUSH);
 	va_end(xy);
-	return (add);
+	return (sum);
 }

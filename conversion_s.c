@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * init_params - clears struct
+ * init_params - initialize clears struct
  * @params:  parameters struct
  * @p:  argument pointer
  * Return: none

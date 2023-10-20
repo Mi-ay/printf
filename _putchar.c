@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * _puts - prints a string
+ * _puts - prints a string to st output
  * @str: string to be printed
  *
  * Return:(str-a)
@@ -24,15 +24,15 @@ int _puts(char *str)
  */
 int _putchar(int c)
 {
-	static int r;
+	static int d;
 	static char buf[OUTPUT_BUF_SIZE];
 
-	if (c == BUF_FLUSH || r >= OUTPUT_BUF_SIZE)
+	if (c == BUF_FLUSH || d >= OUTPUT_BUF_SIZE)
 	{
-		write(1, buf, r);
-		r = 0;
+		write(1, buf, d);
+		d = 0;
 	}
 	if (c != BUF_FLUSH)
-		buf[r++] = c;
+		buf[d++] = c;
 	return (1);
 }
